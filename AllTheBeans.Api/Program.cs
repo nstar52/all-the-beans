@@ -5,9 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
+var dbPath = Path.Combine(builder.Environment.ContentRootPath, "allthebeans.db");
 builder.Services.AddDbContext<AllTheBeansDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") 
-        ?? "Data Source=allthebeans.db"));
+    options.UseSqlite($"Data Source={dbPath}"));
 
 var app = builder.Build();
 
