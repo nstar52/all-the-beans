@@ -7,4 +7,3 @@ public class BeanOfTheDay
     public DateOnly Date { get; set; }
     public Bean Bean { get; set; } = null!;
 }
-

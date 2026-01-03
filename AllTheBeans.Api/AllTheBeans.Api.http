@@ -1,0 +1,49 @@
+### Get all beans
+GET http://localhost:5114/api/beans
+Accept: application/json
+
+### Get bean by ID
+GET http://localhost:5114/api/beans/1
+Accept: application/json
+
+### Get Bean of the Day
+GET http://localhost:5114/api/beanoftheday
+Accept: application/json
+
+### Search beans by name
+GET http://localhost:5114/api/beans/search?name=KLUGGER
+Accept: application/json
+
+### Search beans by country
+GET http://localhost:5114/api/beans/search?country=Colombia
+Accept: application/json
+
+### Search beans by colour
+GET http://localhost:5114/api/beans/search?colour=green
+Accept: application/json
+
+### Create new bean
+POST http://localhost:5114/api/beans
+Content-Type: application/json
+
+{
+  "name": "Test Bean",
+  "description": "A test coffee bean",
+  "country": "Test Country",
+  "colour": "Brown",
+  "cost": 15.99,
+  "image": "test.jpg"
+}
+
+### Update bean
+PUT http://localhost:5114/api/beans/1
+Content-Type: application/json
+
+{
+  "name": "Updated Bean Name",
+  "cost": 20.00
+}
+
+### Delete bean
+DELETE http://localhost:5114/api/beans/1
+

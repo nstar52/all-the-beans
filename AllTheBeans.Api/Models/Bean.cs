@@ -13,4 +13,3 @@ public class Bean
     public string Image { get; set; } = string.Empty;
     public bool IsBeanOfTheDay { get; set; }
 }
-

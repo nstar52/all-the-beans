@@ -26,7 +26,7 @@ public class AllTheBeansDbContext : DbContext
             entity.Property(e => e.Image).HasMaxLength(500);
             entity.Property(e => e.ExternalId).HasMaxLength(50);
             entity.Property(e => e.Cost).HasColumnType("decimal(18,2)");
-            
+
             entity.HasIndex(e => e.Name);
             entity.HasIndex(e => e.Country);
             entity.HasIndex(e => e.Colour);
@@ -35,7 +35,7 @@ public class AllTheBeansDbContext : DbContext
         modelBuilder.Entity<BeanOfTheDay>(entity =>
         {
             entity.HasIndex(e => e.Date).IsUnique();
-            
+
             entity.HasOne(e => e.Bean)
                   .WithMany()
                   .HasForeignKey(e => e.BeanId)
