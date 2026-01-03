@@ -35,7 +35,8 @@ export const searchBeans = async (
   if (country) params.append('country', country);
   if (colour) params.append('colour', colour);
 
-  const response = await api.get<Bean[]>(`/beans/search?${params.toString()}`);
+  const queryString = params.toString();
+  const response = await api.get<Bean[]>(`/beans/search?${queryString}`);
   return response.data;
 };
 
