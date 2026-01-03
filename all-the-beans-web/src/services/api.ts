@@ -25,18 +25,3 @@ export const getBeanOfTheDay = async (): Promise<Bean> => {
   return response.data;
 };
 
-export const searchBeans = async (
-  name?: string,
-  country?: string,
-  colour?: string
-): Promise<Bean[]> => {
-  const params = new URLSearchParams();
-  if (name) params.append('name', name);
-  if (country) params.append('country', country);
-  if (colour) params.append('colour', colour);
-
-  const queryString = params.toString();
-  const response = await api.get<Bean[]>(`/beans/search?${queryString}`);
-  return response.data;
-};
-

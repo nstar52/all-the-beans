@@ -4,19 +4,26 @@ import { getAllBeans } from '../services/api'
 import type { Bean } from '../types/Bean'
 
 function BeanList() {
+  const [allBeans, setAllBeans] = useState<Bean[]>([])
   const [beans, setBeans] = useState<Bean[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
     loadBeans()
   }, [])
 
+  useEffect(() => {
+    filterBeans()
+  }, [searchTerm, allBeans])
+
   const loadBeans = async () => {
     try {
+      setLoading(true)
       const data = await getAllBeans()
-      setBeans(data)
+      setAllBeans(data)
       setError(null)
     } catch (error) {
       console.error('Failed to load beans', error)
@@ -28,6 +35,21 @@ function BeanList() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const filterBeans = () => {
+    if (!searchTerm.trim()) {
+      setBeans(allBeans)
+      return
+    }
+
+    const term = searchTerm.toLowerCase().trim()
+    const filtered = allBeans.filter(bean =>
+      bean.name.toLowerCase().includes(term) ||
+      bean.country.toLowerCase().includes(term) ||
+      bean.colour.toLowerCase().includes(term)
+    )
+    setBeans(filtered)
   }
 
   if (loading) {
@@ -42,11 +64,24 @@ function BeanList() {
     )
   }
 
-  if (beans.length === 0) {
+  if (beans.length === 0 && !loading) {
     return (
       <div>
         <h2 className="mb-4">All Beans</h2>
-        <p>No beans available.</p>
+        
+        <div className="card mb-4">
+          <div className="card-body">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by name, country, or colour..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <p>No beans found.</p>
       </div>
     )
   }
@@ -54,6 +89,19 @@ function BeanList() {
   return (
     <div>
       <h2 className="mb-4">All Beans</h2>
+      
+      <div className="card mb-4">
+        <div className="card-body">
+          <input
+            type="text"
+            className="form-control"
+              placeholder="Search by name, country, or colour..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
+
       <div className="row">
         {beans.map((bean) => (
           <div key={bean.id} className="col-md-4 mb-4">
