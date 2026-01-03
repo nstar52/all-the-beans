@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Bean } from '../types/Bean';
+import type { Bean } from '../types/Bean';
 
 const API_BASE_URL = 'http://localhost:5114/api';
 
