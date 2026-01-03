@@ -7,6 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
+// CORS: Allow frontend to call API
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:5173") // Vite default port
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 // Security: Configure HSTS for production
 builder.Services.AddHsts(options =>
 {
@@ -44,6 +55,7 @@ else
     app.UseHsts();
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.MapControllers();
