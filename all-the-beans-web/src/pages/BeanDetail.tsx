@@ -56,24 +56,30 @@ function BeanDetail() {
       </button>
       
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-6 mb-4">
           {bean.image && (
             <img 
               src={bean.image} 
-              className="img-fluid rounded" 
+              className="img-fluid rounded shadow" 
               alt={bean.name}
             />
           )}
         </div>
         <div className="col-md-6">
-          <h2>{bean.name}</h2>
+          <h2 className="mb-3">{bean.name}</h2>
           {bean.isBeanOfTheDay && (
-            <span className="badge bg-warning text-dark mb-2">Bean of the Day</span>
+            <span className="badge bg-warning text-dark mb-3">Bean of the Day</span>
           )}
-          <p className="text-muted">{bean.country}</p>
-          <p><strong>Colour:</strong> {bean.colour}</p>
-          <p><strong>Price:</strong> £{bean.cost.toFixed(2)}</p>
-          <p>{bean.description}</p>
+          <p className="text-muted mb-2">{bean.country}</p>
+          <p className="mb-2"><strong>Colour:</strong> {bean.colour}</p>
+          <p className="mb-3"><strong>Price:</strong> £{bean.cost.toFixed(2)}</p>
+          <p className="mb-4">{bean.description}</p>
+          <button 
+            className="btn btn-primary btn-lg"
+            onClick={() => navigate(`/order/${bean.id}`)}
+          >
+            Add to Order
+          </button>
         </div>
       </div>
     </div>

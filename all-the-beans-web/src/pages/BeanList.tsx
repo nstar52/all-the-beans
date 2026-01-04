@@ -106,7 +106,7 @@ function BeanList() {
         {beans.map((bean) => (
           <div key={bean.id} className="col-md-4 mb-4">
             <div 
-              className="card h-100" 
+              className="card h-100 shadow-sm" 
               style={{ cursor: 'pointer' }}
               onClick={() => navigate(`/beans/${bean.id}`)}
             >

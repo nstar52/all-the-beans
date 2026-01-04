@@ -1,23 +1,42 @@
-# All The Beans API
+# All The Beans
 
-A lightweight .NET Core Web API for managing coffee beans and selecting the coffee bean of the day. The bean cannot be repeated two days in a row. 
+A lightweight application for managing and displaying coffee beans with a "Bean of the Day" feature. The project includes both a .NET Core Web API backend and a React frontend. 
 
 ## Features
 
+### Backend (API)
 - **CRUD Operations**: Create, read, update, and delete coffee beans
 - **Bean of the Day**: Automatically selects a random bean each day (ensuring it's different from the previous day)
 - **Search**: Search beans by name, country, or colour
 - **Database Seeding**: Automatically imports initial data from JSON file on first run
 
+### Frontend (Web)
+- **Bean List**: Display all available coffee beans in a responsive grid
+- **Bean Details**: View detailed information about a selected bean
+- **Bean of the Day**: Featured bean displayed on the home page
+- **Search**: Filter beans by name, country, or colour
+- **Order Form**: Place orders for coffee beans with validation
+
 ## Tech Stack
 
+### Backend
 - .NET 10.0
 - Entity Framework Core
 - SQLite
 - ASP.NET Core Web API
 - xUnit & Moq (testing)
 
+### Frontend
+- React 19
+- TypeScript
+- Vite
+- Bootstrap 5
+- React Router
+- Axios
+
 ## Technology Choices
+
+### Backend
 
 **.NET 10.0** - Using the latest stable version for increased security and access to the latest features.
 
@@ -29,11 +48,29 @@ A lightweight .NET Core Web API for managing coffee beans and selecting the coff
 
 **xUnit & Moq** - Standard testing tools for .NET. xUnit is pretty common, and Moq helps with mocking in tests.
 
+### Frontend
+
+**React** - Chose React because I have some experience with it and it's widely used. Makes it easier to build interactive UIs with components.
+
+**TypeScript** - Adds type safety which helps catch errors early.
+
+**Vite** - Fast build tool and dev server.
+
+**Bootstrap** - Quick way to get a responsive layout without writing lots of custom CSS.
+
+**React Router** - Standard way to handle routing in React apps. Makes navigation between pages straightforward.
+
+**Axios** - Simple HTTP client for making API calls.
+
 ## Prerequisites
 
 - .NET 10.0 SDK
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
 ## Setup
+
+### Backend (API)
 
 ```bash
 dotnet restore
@@ -41,7 +78,23 @@ cd AllTheBeans.Api
 dotnet run
 ```
 
-The database will be created automatically and seeded from `AllTheBeans.json` on first run.
+The database will be created automatically and seeded from `AllTheBeans.json` on first run. The API will run on `http://localhost:5114`.
+
+### Frontend (Web)
+
+```bash
+cd all-the-beans-web
+npm install
+npm run dev
+```
+
+The frontend will run on `http://localhost:5173` and connect to the API automatically.
+
+### Running Both
+
+1. Start the API first (in one terminal)
+2. Then start the frontend (in another terminal)
+3. Open `http://localhost:5173` in your browser
 
 ## API Endpoints
 
@@ -133,26 +186,49 @@ Use the `.http` file in the project or test with curl/Postman. Base URL: `http:/
 ## Project Structure
 
 ```
-AllTheBeans.Api/
-├── Controllers/          # API controllers
+AllTheBeans.Api/              # Backend API
+├── Controllers/              # API controllers
 │   ├── BeansController.cs
 │   └── BeanOfTheDayController.cs
-├── Services/            # Business logic
+├── Services/                 # Business logic
 │   ├── BeanService.cs
 │   ├── BeanOfTheDayService.cs
 │   └── DataImporter.cs
-├── Models/              # Domain models and DTOs
+├── Models/                   # Domain models and DTOs
 │   ├── Bean.cs
 │   ├── BeanOfTheDay.cs
 │   └── Dtos/
-├── Data/                # Database context
+├── Data/                     # Database context
 │   └── AllTheBeansDbContext.cs
-├── Migrations/          # EF Core migrations
-└── Program.cs           # Application entry point
+├── Migrations/               # EF Core migrations
+└── Program.cs                 # Application entry point
+
+all-the-beans-web/            # Frontend React app
+├── src/
+│   ├── pages/               # Page components
+│   │   ├── Home.tsx
+│   │   ├── BeanList.tsx
+│   │   ├── BeanDetail.tsx
+│   │   └── OrderForm.tsx
+│   ├── services/            # API service
+│   │   └── api.ts
+│   ├── types/               # TypeScript types
+│   │   └── Bean.ts
+│   ├── App.tsx              # Main app component
+│   └── main.tsx             # Entry point
+└── package.json
 ```
 
 ## Notes
+
+### Backend
 - Database: SQLite file at `AllTheBeans.Api/allthebeans.db`
 - Migrations run automatically on startup
 - HTTP is available for easier testing. HTTPS will be enforced if this API is deployed to production.
+- CORS is configured to allow requests from `http://localhost:5173`
+
+### Frontend
+- Orders are stored in browser localStorage (no backend persistence)
+- Search is done client-side for instant results
+- The app expects the API to be running on `http://localhost:5114`
 

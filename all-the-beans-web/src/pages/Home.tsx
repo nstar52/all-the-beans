@@ -31,26 +31,26 @@ function Home() {
       {loading && <div className="text-center">Loading...</div>}
 
       {beanOfTheDay && (
-        <div className="card mb-4">
+        <div className="card mb-4 shadow">
           <div className="card-header bg-warning">
             <h3 className="mb-0">Bean of the Day</h3>
           </div>
           <div className="card-body">
             <div className="row">
-              <div className="col-md-4">
+              <div className="col-md-4 mb-3 mb-md-0">
                 {beanOfTheDay.image && (
                   <img 
                     src={beanOfTheDay.image} 
-                    className="img-fluid rounded" 
+                    className="img-fluid rounded shadow-sm" 
                     alt={beanOfTheDay.name}
                   />
                 )}
               </div>
               <div className="col-md-8">
-                <h4>{beanOfTheDay.name}</h4>
-                <p className="text-muted">{beanOfTheDay.country}</p>
-                <p><strong>Price:</strong> £{beanOfTheDay.cost.toFixed(2)}</p>
-                <p>{beanOfTheDay.description}</p>
+                <h4 className="mb-2">{beanOfTheDay.name}</h4>
+                <p className="text-muted mb-2">{beanOfTheDay.country}</p>
+                <p className="mb-2"><strong>Price:</strong> £{beanOfTheDay.cost.toFixed(2)}</p>
+                <p className="mb-3">{beanOfTheDay.description}</p>
                 <button 
                   className="btn btn-primary"
                   onClick={() => navigate(`/beans/${beanOfTheDay.id}`)}
